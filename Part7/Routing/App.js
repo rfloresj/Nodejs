@@ -7,6 +7,8 @@ const server = http.createServer((req, res) => {
   switch (method) {
     case "GET":
       return handleRequestGET(req, res);
+    case "POST":
+      return handleRequestPOST(req, res);
     default:
       console.log(`This method cannot be handled by the server: ${method}`);
   }
@@ -28,6 +30,13 @@ const handleRequestGET = (req, res) => {
   res.statusCode = 404;
   res.end("The requested resource is not found...");
 };
+
+const handleRequestPOST = (req, res) => {
+  const path = req.url;
+  if(){
+
+  }
+}
 
 const PORT = 4000;
 
