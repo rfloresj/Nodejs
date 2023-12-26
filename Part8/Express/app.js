@@ -3,6 +3,13 @@ const app = express();
 
 const { infoCourses } = require("./courses.js");
 
+//  Routers
+const routerProgramming = express.Router();
+app.use("/api/courses/programming", routerProgramming);
+
+const routerMathematics = express.Router();
+app.use("/api/courses/mathematics", routerMathematics);
+
 // Routing
 
 app.get("/", (req, res) => {
@@ -13,17 +20,17 @@ app.get("/api/courses", (req, res) => {
   res.send(JSON.stringify(infoCourses));
 });
 
-app.get("/api/courses/programming", (req, res) => {
+routerProgramming.get("/", (req, res) => {
   res.send(JSON.stringify(infoCourses.programming));
 });
 
-app.get("/api/courses/mathematics", (req, res) => {
+routerMathematics.get("/", (req, res) => {
   res.send(JSON.stringify(infoCourses.mathematics));
 });
 
 // Programming
 // :language, URL parameter
-app.get("/api/courses/programming/:language", (req, res) => {
+routerProgramming.get("/:language", (req, res) => {
   const language = req.params.language;
   const results = infoCourses.programming.filter(
     (course) => course.language === language
@@ -33,12 +40,15 @@ app.get("/api/courses/programming/:language", (req, res) => {
     return res.status(404).send(`No courses found from ${language}`);
   }
 
+  if (req.query.order === "views") {
+    return res.send(JSON.stringify(results.sort((a, b) => b.views - a.views)));
+  }
   res.send(JSON.stringify(results));
 });
 
 // Mathematics
 
-app.get("/api/courses/mathematics/:subject", (req, res) => {
+routerMathematics.get("/:subject", (req, res) => {
   const subject = req.params.subject;
   const results = infoCourses.mathematics.filter(
     (course) => course.subject === subject
@@ -51,7 +61,7 @@ app.get("/api/courses/mathematics/:subject", (req, res) => {
   res.send(JSON.stringify(results));
 });
 
-app.get("/api/courses/programming/:language/:level", (req, res) => {
+routerProgramming.get("/:language/:level", (req, res) => {
   const language = req.params.language;
   const level = req.params.level;
 
