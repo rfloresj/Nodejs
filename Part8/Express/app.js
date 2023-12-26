@@ -51,6 +51,23 @@ app.get("/api/courses/mathematics/:subject", (req, res) => {
   res.send(JSON.stringify(results));
 });
 
+app.get("/api/courses/programming/:language/:level", (req, res) => {
+  const language = req.params.language;
+  const level = req.params.level;
+
+  const results = infoCourses.programming.filter(
+    (course) => course.language === language && course.level === level
+  );
+
+  if (results.length === 0) {
+    return res
+      .status(404)
+      .send(`No courses found from ${language} of level ${level}`);
+  }
+
+  res.send(JSON.stringify(results));
+});
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
