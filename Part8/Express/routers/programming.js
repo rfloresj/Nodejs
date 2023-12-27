@@ -3,6 +3,10 @@ const { programming } = require("../data/courses").infoCourses;
 
 const routerProgramming = express.Router();
 
+// Process the request body
+// Middleware
+routerProgramming.use(express.json());
+
 routerProgramming.get("/", (req, res) => {
   res.send(JSON.stringify(programming));
 });
@@ -36,6 +40,12 @@ routerProgramming.get("/:language/:level", (req, res) => {
   }
 
   res.send(JSON.stringify(results));
+});
+
+routerProgramming.post("/", (req, res) => {
+  let newCourse = req.body;
+  programming.push(newCourse);
+  res.send(JSON.stringify(programming));
 });
 
 module.exports = routerProgramming;
