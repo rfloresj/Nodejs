@@ -8,7 +8,7 @@ const routerProgramming = express.Router();
 routerProgramming.use(express.json());
 
 routerProgramming.get("/", (req, res) => {
-  res.send(JSON.stringify(programming));
+  res.json(programming);
 });
 
 routerProgramming.get("/:language", (req, res) => {
@@ -20,9 +20,9 @@ routerProgramming.get("/:language", (req, res) => {
   }
 
   if (req.query.order === "views") {
-    return res.send(JSON.stringify(results.sort((a, b) => b.views - a.views)));
+    return res.send(results.sort((a, b) => b.views - a.views));
   }
-  res.send(JSON.stringify(results));
+  res.json(results);
 });
 
 routerProgramming.get("/:language/:level", (req, res) => {
@@ -39,13 +39,13 @@ routerProgramming.get("/:language/:level", (req, res) => {
       .send(`No courses found from ${language} of level ${level}`);
   }
 
-  res.send(JSON.stringify(results));
+  res.json(results);
 });
 
 routerProgramming.post("/", (req, res) => {
   let newCourse = req.body;
   programming.push(newCourse);
-  res.send(JSON.stringify(programming));
+  res.json(programming);
 });
 
 routerProgramming.put("/:id", (req, res) => {
@@ -56,9 +56,11 @@ routerProgramming.put("/:id", (req, res) => {
 
   if (index >= 0) {
     programming[index] = updatedCourse;
+  } else {
+    res.status(404).send(`Index not found ${index}`);
   }
 
-  res.send(JSON.stringify(programming));
+  res.json(programming);
 });
 
 routerProgramming.patch("/:id", (req, res) => {
@@ -71,7 +73,7 @@ routerProgramming.patch("/:id", (req, res) => {
     const courseToModify = programming[index];
     Object.assign(courseToModify, updatedInfo);
   }
-  res.send(JSON.stringify(programming));
+  res.json(programming);
 });
 
 routerProgramming.delete("/:id", (req, res) => {
@@ -81,7 +83,7 @@ routerProgramming.delete("/:id", (req, res) => {
   if (index >= 0) {
     programming.splice(index, 1);
   }
-  res.send(JSON.stringify(programming));
+  res.json(programming);
 });
 
 module.exports = routerProgramming;
