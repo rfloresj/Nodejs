@@ -31,3 +31,7 @@ Content-Type: application/json
     "title": "Middle Python with projects",
     "views": 123996
 }
+
+###
+
+DELETE  http://localhost:3005/api/courses/programming/1 HTTP/1.1
