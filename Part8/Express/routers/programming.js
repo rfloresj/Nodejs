@@ -48,4 +48,30 @@ routerProgramming.post("/", (req, res) => {
   res.send(JSON.stringify(programming));
 });
 
+routerProgramming.put("/:id", (req, res) => {
+  updatedCourse = req.body;
+  const id = req.params.id;
+
+  const index = programming.findIndex((course) => course.id == id);
+
+  if (index >= 0) {
+    programming[index] = updatedCourse;
+  }
+
+  res.send(JSON.stringify(programming));
+});
+
+routerProgramming.patch("/:id", (req, res) => {
+  const updatedInfo = req.body;
+  const id = req.params.id;
+
+  const index = programming.findIndex((course) => course.id == id);
+
+  if (index >= 0) {
+    const courseToModify = programming[index];
+    Object.assign(courseToModify, updatedInfo);
+  }
+  res.send(JSON.stringify(programming));
+});
+
 module.exports = routerProgramming;
