@@ -37,6 +37,7 @@ routerProgramming.get("/:language/:level", (req, res) => {
     return res
       .status(404)
       .send(`No courses found from ${language} of level ${level}`);
+    // return res.status(404).end();
   }
 
   res.json(results);
