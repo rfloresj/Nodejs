@@ -1,0 +1,33 @@
+body {
+  padding: 0;
+  margin: 0;
+  font-family: sans-serif;
+}
+
+.main-header {
+  height: auto;
+  width: 100%;
+  height: 3.5rem;
+  background-color: #62ccb0;
+  padding: 0 1.5rem;
+}
+
+ul {
+  list-style: none;
+  display: flex;
+  padding: 1rem 10px;
+  margin: 0;
+  text-decoration: none;
+  color: black;
+}
+
+li a {
+  list-style: none;
+  margin: 0 20px;
+  text-decoration: none;
+  color: black;
+}
+
+h1 {
+  margin: 15px 20px;
+}
